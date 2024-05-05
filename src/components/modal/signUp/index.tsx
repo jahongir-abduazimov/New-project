@@ -1,5 +1,5 @@
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ModalProps } from "@global-interface";
 import { auth } from "@service";
@@ -11,7 +11,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   minWidth: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "2px solid #fff",
   boxShadow: 24,
   p: 4,
 };
@@ -22,7 +22,24 @@ interface IModalProp extends ModalProps {
 
 const index = ({ open, handleClose, email }: IModalProp) => {
   const [code, setCode] = useState("");
+  const [secondsLeft, setSecondsLeft] = useState(60);
   const navigate = useNavigate();
+  useEffect(()=> {
+    let timer = null;
+    if (open) {
+      timer = setInterval(() => {
+        setSecondsLeft((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    }
+  }, [open])
+  useEffect(() => {
+    if (secondsLeft === 0) {
+      handleClose();
+    }
+  }, [secondsLeft, handleClose])
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -61,6 +78,9 @@ const index = ({ open, handleClose, email }: IModalProp) => {
               sx={{ marginY: "20px" }}
               onChange={(e) => setCode(e.target.value)}
             />
+            <Typography>
+                {`Time left: ${secondsLeft} seconds`}
+              </Typography>
             <Button
               type="submit"
               variant="contained"

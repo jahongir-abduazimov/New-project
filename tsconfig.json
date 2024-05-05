@@ -25,10 +25,11 @@
             "@router": ["./src/router"],
             "@service": ["./src/service"],
             "@context": ["./src/context"],
-            "@validatiion": ["./src/utils/validations.ts"],
+            "@validation": ["./src/utils/validations.ts"],
             "@auth-interface": ["./src/types/interface/auth.ts"],
             "@global-interface": ["./src/types/interface/global.ts"],
             "@modals": ["./src/components/modal"],
+            "@data-service": ["./src/utils/data-service.ts"],
 
             
         },
