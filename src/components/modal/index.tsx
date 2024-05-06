@@ -1,3 +1,5 @@
 import SigUpModal from './signUp'
 import SignInModal from './signIn'
-export {SignInModal,SigUpModal}
+import ServiceAdd from './service'
+import UpdateModal from './updateModal'
+export {SignInModal,SigUpModal, ServiceAdd, UpdateModal}

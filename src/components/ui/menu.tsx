@@ -24,7 +24,9 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   const logOut = () => {
+    localStorage.removeItem("token");
     removeDataFromCookie("token");
+    removeDataFromCookie("user");
     navigate("/signin");
   }
   return (

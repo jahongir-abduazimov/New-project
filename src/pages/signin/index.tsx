@@ -10,7 +10,6 @@ import { ToastContainer } from "react-toastify";
 import Notification from "../../utils/notification";
 import { useState, useEffect } from "react";
 import { setDataToCookie } from "@data-service";
-import { getDataFromCookie } from "@data-service";
 import "./style.scss";
 
 const index = () => {
@@ -26,10 +25,13 @@ const index = () => {
       const response = await auth.sign_in(values);
       console.log(response);
       if (response.status === 200) {
+        localStorage.setItem("token", response?.data?.access_token);
         setDataToCookie("token", response?.data?.access_token);
+        const userData = JSON.stringify({ ...response.data, password: values.password })
+        setDataToCookie('user', userData)
         setTimeout(() => {
           navigate("/");
-        }, 3000);
+        }, 2000);
         Notification({
           title: "Siz muvaffaqiyatli kirdingiz",
           type: "success",
@@ -41,7 +43,7 @@ const index = () => {
     }
   };
   const login = () => {
-    if (getDataFromCookie("token")) {
+    if (localStorage.getItem("token")) {
       navigate("/");
     }
   };
@@ -129,7 +131,7 @@ const index = () => {
                 >
                   Kirish
                 </Button>
-                <p onClick={()=>navigate("/signup")} className="mt-3 cursor-pointer hover:text-blue-500">Ro'yhatdan o'tish</p>
+                <p onClick={() => navigate("/signup")} className="mt-3 cursor-pointer hover:text-blue-500">Ro'yhatdan o'tish</p>
               </Form>
             )}
           </Formik>

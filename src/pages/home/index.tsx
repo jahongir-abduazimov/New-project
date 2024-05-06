@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Layout from "../../components/ui/layout"
-import { getDataFromCookie } from "@data-service";
 import "./style.scss"
 
 const index = () => {
-
+    const token = localStorage.getItem("token")
     const navigate = useNavigate()
     function login() {
-        if (!getDataFromCookie("token")) {
+        if (!token) {
             navigate('/signin')
         }
     }

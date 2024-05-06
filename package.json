@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.16",
     "@react-input/mask": "^1.2.0",
+    "@react-spring/web": "^9.7.3",
     "axios": "^1.6.8",
     "formik": "^2.4.6",
     "git": "^0.1.5",
