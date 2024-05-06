@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import Notification from "../../utils/notification";
 import { useState, useEffect } from "react";
 import { setDataToCookie } from "@data-service";
+import { getDataFromCookie } from "@data-service";
 import "./style.scss";
 
 const index = () => {
@@ -24,7 +25,7 @@ const index = () => {
     try {
       const response = await auth.sign_in(values);
       console.log(response);
-      if (response.status === 404) {
+      if (response.status === 200) {
         setDataToCookie("token", response?.data?.access_token);
         setTimeout(() => {
           navigate("/");
@@ -40,7 +41,7 @@ const index = () => {
     }
   };
   const login = () => {
-    if (localStorage.getItem("token")) {
+    if (getDataFromCookie("token")) {
       navigate("/");
     }
   };
@@ -113,7 +114,7 @@ const index = () => {
                   }}
                 />
                 <p
-                  className="mb-3 cursor-pointer  hover:text-blue-500"
+                  className="mb-3 cursor-pointer hover:text-blue-500"
                   onClick={() => setModal(true)}
                 >
                   Parolni unutdingizmi?
@@ -128,6 +129,7 @@ const index = () => {
                 >
                   Kirish
                 </Button>
+                <p onClick={()=>navigate("/signup")} className="mt-3 cursor-pointer hover:text-blue-500">Ro'yhatdan o'tish</p>
               </Form>
             )}
           </Formik>
