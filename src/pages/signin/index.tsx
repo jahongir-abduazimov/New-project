@@ -27,8 +27,7 @@ const index = () => {
       if (response.status === 200) {
         localStorage.setItem("token", response?.data?.access_token);
         setDataToCookie("token", response?.data?.access_token);
-        const userData = JSON.stringify({ ...response.data, password: values.password })
-        setDataToCookie('user', userData)
+        setDataToCookie('user', response?.data?.email)
         setTimeout(() => {
           navigate("/");
         }, 2000);

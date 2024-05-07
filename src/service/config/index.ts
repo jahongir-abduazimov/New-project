@@ -1,3 +1,4 @@
+import { getDataFromCookie } from '@data-service';
 import axios  from 'axios';
 
 const request = axios.create({
@@ -5,7 +6,7 @@ const request = axios.create({
 })
 
 request.interceptors.request.use((config) => {
-      const token = ""
+      const token = getDataFromCookie("token")
       if (token) {
             config.headers['Authorization'] = token
       }
